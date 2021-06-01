@@ -3,7 +3,7 @@ const router = express.Router();
 const dataPedido = require('../data/pedidos');
 const joi = require('joi');
 
-// /api/clientes/
+// /api/pedidos/
 router.get('/', async function (req, res, next) {
     let pedido = await dataPedido.getPedidos();
     res.json(pedido);

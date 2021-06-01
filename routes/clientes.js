@@ -18,56 +18,60 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+//--------------------POST sin validacion FUNCIONANDO --------------------
+// router.post('/', async (req, res) => {
+//     //TODO validar
+//     let cliente = req.body;
+//     cliente = await dataCliente.addCliente(cliente);
+//     res.json(cliente);
+// });
+
 router.post('/', async (req, res) => {
-    //TODO validar
-    let cliente = req.body;
-    cliente = await dataCliente.addCliente(cliente);
-    res.json(cliente);
+    const schema = joi.object({
+        nro_cliente: joi.number().min(0).max(999999).required(),  //debe ser autoincremental
+        nombre: joi.string().alphanum().min(2).required(),
+        apellido: joi.string().alphanum().min(2).required(),
+        email: joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+        direccion:joi.string().required(),
+    });
+    const result = schema.validate(req.body);
+    console.log(result);
+    if (result.error) {
+        res.status(400).send(result.error.details[0].message);
+    } else {
+        let cliente = req.body;
+        cliente = await dataCliente.addCliente(cliente);
+        res.json(cliente);
+    }
 });
 
-// -------- POST CON VALIDACION -------------------------
-// router.post('/', async (req, res) => {
-//     const schema = joi.object({
-//         first: joi.string().alphanum().min(3).required(),
-//         last: joi.string().alphanum().min(3).required(),
-//         year: joi.number().min(1900).max(2020).required()
-//     });
-//     const result = schema.validate(req.body);
-//     console.log(result);
-//     if (result.error) {
-//         res.status(400).send(result.error.details[0].message);
-//     } else {
-//         let inventor = req.body;
-//         inventor = await dataInventor.addInventor(inventor);
-//         res.json(inventor);
-//     }
+//----------------PUT sin validacion FUNCIONANDO----------------------------
+// router.put('/:id', async (req, res) => {
+//     let cliente = req.body;
+//     cliente._id = req.params.id;
+//     dataCliente.updateCliente(cliente);
+//     res.json(cliente);
 // });
 
 router.put('/:id', async (req, res) => {
-    let cliente = req.body;
+const schema = joi.object({
+        nro_cliente: joi.number().min(0).max(999999).required(),
+        nombre: joi.string().alphanum().min(2).required(),
+        apellido: joi.string().alphanum().min(2).required(),
+        email: joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+        direccion:joi.string().required(),
+    });
+    const result = schema.validate(req.body);
+    console.log(result);
+    if (result.error) {
+        res.status(400).send(result.error.details[0].message);
+    } else {
+     let cliente = req.body;
     cliente._id = req.params.id;
     dataCliente.updateCliente(cliente);
     res.json(cliente);
+    }
 });
-
-//---------- PUT CON VALIDACION --------------------
-// router.put('/:id', async (req, res) => {
-//     const schema = joi.object({
-//         first: joi.string().alphanum().min(3),
-//         last: joi.string().alphanum().min(3),
-//         year: joi.number().min(1400).max(2020)
-//     });
-//     const result = schema.validate(req.body);
-//     if (result.error) {
-//         res.status(400).send(result.error.details[0].message);
-//     } else {
-//         let inventor = req.body;
-//         inventor._id = req.params.id;
-//         dataInventor.updateInventor(inventor);
-//         res.json(inventor);
-//     }
-// });
-
 
 router.delete('/:id', async (req, res) => {
     const cliente = await dataCliente.getCliente(req.params.id)
@@ -78,6 +82,5 @@ router.delete('/:id', async (req, res) => {
         res.status(200).send('Cliente eliminado');
     }
 });
-
 
 module.exports = router;

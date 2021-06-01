@@ -1,6 +1,7 @@
 const connection = require('./connection')
 let objectId = require('mongodb').ObjectId;
 
+
 async function getClientes() {
     const clientmongo = await connection.getConnection();
     const clientes = clientmongo.db('sample_tp2')
@@ -52,6 +53,8 @@ async function deleteCliente(id) {
         .deleteOne({ _id: new objectId(id) });
     return result;
 }
+
+
 
 
 module.exports = { getClientes, getCliente, addCliente, updateCliente, deleteCliente };
