@@ -28,14 +28,13 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const schema = joi.object({
-        nro_cliente: joi.number().min(0).max(999999).required(),  //debe ser autoincremental
-        nombre: joi.string().alphanum().min(2).required(),
-        apellido: joi.string().alphanum().min(2).required(),
+        nombre: joi.string().alphanum().min(2).max(50).required(),
+        apellido: joi.string().alphanum().min(2).max(50).required(),
+        telefono: joi.number().min(40000000).max(9999999999).required(),  //debe ser autoincremental
         email: joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
-        direccion:joi.string().required(),
+        direccion:joi.string().alphanum().min(0).max(1000).required(),
     });
     const result = schema.validate(req.body);
-    console.log(result);
     if (result.error) {
         res.status(400).send(result.error.details[0].message);
     } else {
@@ -55,14 +54,13 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
 const schema = joi.object({
-        nro_cliente: joi.number().min(0).max(999999).required(),
-        nombre: joi.string().alphanum().min(2).required(),
-        apellido: joi.string().alphanum().min(2).required(),
+        nombre: joi.string().alphanum().min(2).max(50).required(),
+        apellido: joi.string().alphanum().min(2).max(50).required(),
+        telefono: joi.number().min(40000000).max(9999999999).required(),  //debe ser autoincremental
         email: joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
-        direccion:joi.string().required(),
+        direccion:joi.string().alphanum().min(0).max(1000).required(),
     });
     const result = schema.validate(req.body);
-    console.log(result);
     if (result.error) {
         res.status(400).send(result.error.details[0].message);
     } else {

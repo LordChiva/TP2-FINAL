@@ -32,9 +32,9 @@ async function updateCliente(cliente) {
     const query = { _id: new objectId(cliente._id) };
     const newvalues = {
         $set: {
-            nro_cliente: cliente.nro_cliente,
             nombre: cliente.nombre,
             apellido: cliente.apellido,
+            telefono: cliente.telefono,
             email: cliente.email,
             direccion: cliente.direccion,
         }

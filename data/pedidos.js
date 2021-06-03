@@ -31,7 +31,6 @@ async function updatePedido(pedido) {
     const query = { _id: new objectId(pedido._id) };
     const newvalues = {
         $set: {
-            nro_pedido: pedido.nro_pedido,
             fechahora: pedido.fechahora,
             empleado_id: pedido.empleado_id,
             cliente_id: pedido.cliente_id,

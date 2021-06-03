@@ -31,7 +31,7 @@ async function updateProducto(producto) {
     const query = { _id: new objectId(producto._id) };
     const newvalues = {
         $set: {
-            nro_producto: producto.nro_producto,
+            cod: producto.cod,
             gusto: producto.gusto,
             precio: producto.precio,
         }

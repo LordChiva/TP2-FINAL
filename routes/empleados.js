@@ -19,10 +19,19 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    //TODO validar
-    let empleado = req.body;
-    empleado = await dataEmpleado.addEmpleado(empleado);
-    res.json(empleado);
+    const schema = joi.object({
+        legajo: joi.number().alphanum().min(1000).max(9999).required(),
+        nombre: joi.string().alphanum().min(2).max(50).required(),
+        password: joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    });
+    const result = schema.validate(req.body);
+    if (result.error) {
+        res.status(400).send(result.error.details[0].message);
+    } else {
+        let empleado = req.body;
+        empleado = await dataEmpleado.addEmpleado(empleado);
+        res.json(empleado);
+    }
 });
 
 // -------- POST CON VALIDACION -------------------------
@@ -44,10 +53,20 @@ router.post('/', async (req, res) => {
 // });
 
 router.put('/:id', async (req, res) => {
-    let empleado = req.body;
-    empleado._id = req.params.id;
-    dataEmpleado.updateEmpleado(empleado);
-    res.json(empleado);
+    const schema = joi.object({
+        legajo: joi.number().alphanum().min(1000).max(9999).required(),
+        nombre: joi.string().alphanum().min(2).max(50).required(),
+        password: joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    });
+    const result = schema.validate(req.body);
+    if (result.error) {
+        res.status(400).send(result.error.details[0].message);
+    } else {
+        let empleado = req.body;
+        empleado._id = req.body;
+        dataEmpleado.updateEmpleado(empleado);
+        res.json(empleado);
+    }
 });
 
 //---------- PUT CON VALIDACION --------------------

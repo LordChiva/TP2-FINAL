@@ -27,9 +27,9 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const schema = joi.object({
-        nro_producto: joi.number().min(0).max(999999).required(),  //debe ser autoincremental
-        gusto: joi.string().required(),
-        precio: joi.number().min(1).max(200).required()
+        cod: joi.string().alphanum().min(1).max(3).required(),
+        gusto: joi.string().alphanum().min(2).max(50).required(),
+        precio: joi.number().min(1).max(1000).required()
     });
     const result = schema.validate(req.body);
     console.log(result);
@@ -52,9 +52,9 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     const schema = joi.object({
-        nro_producto: joi.number().min(0).max(999999).required(),  //debe ser autoincremental
-        gusto: joi.string().required(),
-        precio: joi.number().min(1).max(200).required()
+        cod: joi.string().alphanum().min(1).max(3).required(),
+        gusto: joi.string().alphanum().min(2).max(50).required(),
+        precio: joi.number().min(1).max(1000).required()
     });
     const result = schema.validate(req.body);
     if (result.error) {

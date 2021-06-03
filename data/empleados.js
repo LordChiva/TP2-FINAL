@@ -31,7 +31,7 @@ async function updateEmpleado(empleado) {
     const query = { _id: new objectId(empleado._id) };
     const newvalues = {
         $set: {
-            nro_empleado: empleado.nro_empleado,
+            legajo: empleado.legajo,
             nombre: empleado.nombre,
             password: empleado.password,
         }
