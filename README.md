@@ -3,10 +3,19 @@
 ## Descripción
 
 ## Funcionalidades 
+- Registro de empleado
+- Registro de cliente
+- Registro de producto
+- Ejecución de un pedido
 
 ## Actores 
+- Usuario final (empleado)
+- Admin
 
 ## Entidades
+- Cliente
+- Producto
+- Pedido
 
 ## Instruccione técnicas
 
@@ -16,5 +25,3 @@
     
 ## Endpoints    
     
-
-
