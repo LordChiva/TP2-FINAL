@@ -1,4 +1,6 @@
 const connection = require('./connection')
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 let objectId = require('mongodb').ObjectId;
 
 async function getEmpleados() {
@@ -20,6 +22,8 @@ async function getEmpleado(id) {
 
 async function addEmpleado(empleado) {
     const clientmongo = await connection.getConnection();
+    empleado.password = await bcrypt.hash(empleado.password, 8)
+    
     const result = clientmongo.db('sample_tp2')
         .collection('empleados')
         .insertOne(empleado);
@@ -51,5 +55,27 @@ async function deleteEmpleado(id) {
     return result;
 }
 
+async function findByCredentials(email, password){
+    const clientmongo = await connection.getConnection();
+    const empleado = clientmongo.db('sample_tp2')
+        .collection('empleados')
+        .findOne({ email: email });
+    
+    if(!user){
+        throw new Error('Credenciales no válidas');
+    }    
+    
+    const isMatch = bcrypt.compare(password, empleado.password);
+    if(!isMatch){
+        throw new Error('Credenciales no válidas');
+    }
 
-module.exports = { getEmpleados, getEmpleado, addEmpleado, updateEmpleado, deleteEmpleado };
+    return empleado;
+}
+
+function generateAuthToken(empleado){
+     const token = jwt.sign({_id:empleado._id}, 'ultrasecreta', {expiresIn: '2h'});
+     return token;
+}
+
+module.exports = { getEmpleados, getEmpleado, addEmpleado, updateEmpleado, deleteEmpleado, findByCredentials, generateAuthToken };

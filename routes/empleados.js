@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const dataEmpleado = require('../data/empleados');
 const joi = require('joi');
+const auth = require('../middleware/auth');
 
 // /api/empleados/
-router.get('/', async function (req, res, next) {
+router.get('/', auth, async function (req, res, next) {
     let clientes = await dataEmpleado.getEmpleados();
     res.json(clientes);
 });
@@ -97,6 +98,17 @@ router.delete('/:id', async (req, res) => {
         res.status(200).send('Empleado eliminado');
     }
 });
+
+router.post('/login', async(req, res)=>{
+    try {
+      const user = await dataEmpleado.findByCredentials(req.body.email, req.body.password);
+      const token = dataEmpleado.generateAuthToken(user);
+      res.send({user, token});
+    } catch (error){
+        res.status(401).send(error.message);
+    }
+  
+  });
 
 
 module.exports = router;
