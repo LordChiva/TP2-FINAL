@@ -55,13 +55,13 @@ async function deleteEmpleado(id) {
     return result;
 }
 
-async function findByCredentials(email, password){
+async function findByCredentials(legajo, password){
     const clientmongo = await connection.getConnection();
     const empleado = clientmongo.db('sample_tp2')
         .collection('empleados')
-        .findOne({ email: email });
+        .findOne({ legajo: legajo });
     
-    if(!user){
+    if(!empleado){
         throw new Error('Credenciales no válidas');
     }    
     

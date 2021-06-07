@@ -101,7 +101,7 @@ router.delete('/:id', async (req, res) => {
 
 router.post('/login', async(req, res)=>{
     try {
-      const user = await dataEmpleado.findByCredentials(req.body.email, req.body.password);
+      const user = await dataEmpleado.findByCredentials(req.body.legajo, req.body.password);
       const token = dataEmpleado.generateAuthToken(user);
       res.send({user, token});
     } catch (error){
