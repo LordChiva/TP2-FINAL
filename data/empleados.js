@@ -23,7 +23,7 @@ async function getEmpleado(id) {
 async function addEmpleado(empleado) {
     const clientmongo = await connection.getConnection();
     empleado.password = await bcrypt.hash(empleado.password, 8)
-    
+
     const result = clientmongo.db('sample_tp2')
         .collection('empleados')
         .insertOne(empleado);
@@ -55,27 +55,27 @@ async function deleteEmpleado(id) {
     return result;
 }
 
-async function findByCredentials(legajo, password){
+async function findByCredentials(legajo, password) {
     const clientmongo = await connection.getConnection();
     const empleado = clientmongo.db('sample_tp2')
         .collection('empleados')
         .findOne({ legajo: legajo });
-    
-    if(!empleado){
+
+    if (!empleado) {
         throw new Error('Credenciales no válidas');
-    }    
-    
+    }
+
     const isMatch = bcrypt.compare(password, empleado.password);
-    if(!isMatch){
+    if (!isMatch) {
         throw new Error('Credenciales no válidas');
     }
 
     return empleado;
 }
 
-function generateAuthToken(empleado){
-     const token = jwt.sign({_id:empleado._id}, 'ultrasecreta', {expiresIn: '2h'});
-     return token;
+function generateAuthToken(empleado) {
+    const token = jwt.sign({ _id: empleado._id }, 'ultrasecreta', { expiresIn: '2h' });
+    return token;
 }
 
 module.exports = { getEmpleados, getEmpleado, addEmpleado, updateEmpleado, deleteEmpleado, findByCredentials, generateAuthToken };

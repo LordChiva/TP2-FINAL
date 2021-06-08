@@ -10,7 +10,7 @@ router.get('/', auth, async function (req, res, next) {
     res.json(clientes);
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
     const empleado = await dataEmpleado.getEmpleado(req.params.id);
     if (empleado) {
         res.json(empleado);
@@ -21,9 +21,11 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const schema = joi.object({
-        legajo: joi.number().alphanum().min(1000).max(9999).required(),
+        //legajo: joi.number().alphanum().min(1000).max(9999).required(),
+        legajo: joi.number(),
         nombre: joi.string().alphanum().min(2).max(50).required(),
-        password: joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+        password: joi.string()
+        //password: joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
     });
     const result = schema.validate(req.body);
     if (result.error) {
@@ -99,16 +101,16 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-router.post('/login', async(req, res)=>{
+router.post('/login', async (req, res) => {
     try {
-      const user = await dataEmpleado.findByCredentials(req.body.legajo, req.body.password);
-      const token = dataEmpleado.generateAuthToken(user);
-      res.send({user, token});
-    } catch (error){
+        const user = await dataEmpleado.findByCredentials(req.body.legajo, req.body.password);
+        const token = dataEmpleado.generateAuthToken(user);
+        res.send({ user, token });
+    } catch (error) {
         res.status(401).send(error.message);
     }
-  
-  });
+
+});
 
 
 module.exports = router;
