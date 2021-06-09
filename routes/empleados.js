@@ -6,8 +6,8 @@ const auth = require('../middleware/auth');
 
 // /api/empleados/
 router.get('/', auth, async function (req, res, next) {
-    let clientes = await dataEmpleado.getEmpleados();
-    res.json(clientes);
+    let empleados = await dataEmpleado.getEmpleados();
+    res.json(empleados);
 });
 
 router.get('/:id', auth, async (req, res) => {
@@ -22,10 +22,9 @@ router.get('/:id', auth, async (req, res) => {
 router.post('/', async (req, res) => {
     const schema = joi.object({
         //legajo: joi.number().alphanum().min(1000).max(9999).required(),
-        legajo: joi.number(),
+        legajo: joi.number().min(1000).max(9999).required(),
         nombre: joi.string().alphanum().min(2).max(50).required(),
-        password: joi.string()
-        //password: joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+        password: joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
     });
     const result = schema.validate(req.body);
     if (result.error) {
@@ -57,16 +56,16 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     const schema = joi.object({
-        legajo: joi.number().alphanum().min(1000).max(9999).required(),
-        nombre: joi.string().alphanum().min(2).max(50).required(),
-        password: joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+        legajo: joi.number().min(1000).max(9999).required(),
+        nombre: joi.string().min(2).max(50).required(),
+        password: joi.string().pattern(new RegExp('^[a-zA-Z0-9!@#$%&]{3,30}$')),
     });
     const result = schema.validate(req.body);
     if (result.error) {
         res.status(400).send(result.error.details[0].message);
     } else {
         let empleado = req.body;
-        empleado._id = req.body;
+        empleado._id = req.params.id;
         dataEmpleado.updateEmpleado(empleado);
         res.json(empleado);
     }
