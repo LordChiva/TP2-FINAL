@@ -28,7 +28,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     const schema = joi.object({
         cod: joi.string().alphanum().min(1).max(3).required(),
-        gusto: joi.string().alphanum().min(2).max(50).required(),
+        gusto: joi.string().min(2).max(50).required(),
         precio: joi.number().min(1).max(1000).required()
     });
     const result = schema.validate(req.body);
@@ -53,7 +53,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const schema = joi.object({
         cod: joi.string().alphanum().min(1).max(3).required(),
-        gusto: joi.string().alphanum().min(2).max(50).required(),
+        gusto: joi.string().min(2).max(50).required(),
         precio: joi.number().min(1).max(1000).required()
     });
     const result = schema.validate(req.body);
