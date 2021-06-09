@@ -4,7 +4,7 @@ let objectId = require('mongodb').ObjectId;
 
 async function getClientes() {
     const clientmongo = await connection.getConnection();
-    const clientes = clientmongo.db('sample_tp2')
+    const clientes = await clientmongo.db('sample_tp2')
         .collection('clientes')
         .find()
         .toArray();
@@ -13,7 +13,7 @@ async function getClientes() {
 
 async function getCliente(id) {
     const clientmongo = await connection.getConnection();
-    const cliente = clientmongo.db('sample_tp2')
+    const cliente = await clientmongo.db('sample_tp2')
         .collection('clientes')
         .findOne({ _id: new objectId(id) });
     return cliente;
@@ -21,7 +21,7 @@ async function getCliente(id) {
 
 async function addCliente(cliente) {
     const clientmongo = await connection.getConnection();
-    const result = clientmongo.db('sample_tp2')
+    const result = await clientmongo.db('sample_tp2')
         .collection('clientes')
         .insertOne(cliente);
     return result;
@@ -53,8 +53,5 @@ async function deleteCliente(id) {
         .deleteOne({ _id: new objectId(id) });
     return result;
 }
-
-
-
 
 module.exports = { getClientes, getCliente, addCliente, updateCliente, deleteCliente };

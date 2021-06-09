@@ -3,7 +3,7 @@ let objectId = require('mongodb').ObjectId;
 
 async function getProductos() {
     const clientmongo = await connection.getConnection();
-    const productos = clientmongo.db('sample_tp2')
+    const productos = await clientmongo.db('sample_tp2')
         .collection('productos')
         .find()
         .toArray();
@@ -12,7 +12,7 @@ async function getProductos() {
 
 async function getProducto(id) {
     const clientmongo = await connection.getConnection();
-    const producto = clientmongo.db('sample_tp2')
+    const producto = await clientmongo.db('sample_tp2')
         .collection('productos')
         .findOne({ _id: new objectId(id) });
     return producto;

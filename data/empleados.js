@@ -5,7 +5,7 @@ let objectId = require('mongodb').ObjectId;
 
 async function getEmpleados() {
     const clientmongo = await connection.getConnection();
-    const empleados = clientmongo.db('sample_tp2')
+    const empleados = await clientmongo.db('sample_tp2')
         .collection('empleados')
         .find()
         .toArray();
@@ -14,7 +14,7 @@ async function getEmpleados() {
 
 async function getEmpleado(id) {
     const clientmongo = await connection.getConnection();
-    const empleado = clientmongo.db('sample_tp2')
+    const empleado = await clientmongo.db('sample_tp2')
         .collection('empleados')
         .findOne({ _id: new objectId(id) });
     return empleado;
@@ -24,7 +24,7 @@ async function addEmpleado(empleado) {
     const clientmongo = await connection.getConnection();
     empleado.password = await bcrypt.hash(empleado.password, 8)
 
-    const result = clientmongo.db('sample_tp2')
+    const result = await clientmongo.db('sample_tp2')
         .collection('empleados')
         .insertOne(empleado);
     return result;
@@ -57,7 +57,7 @@ async function deleteEmpleado(id) {
 
 async function findByCredentials(legajo, password) {
     const clientmongo = await connection.getConnection();
-    const empleado = clientmongo.db('sample_tp2')
+    const empleado = await clientmongo.db('sample_tp2')
         .collection('empleados')
         .findOne({ legajo: legajo });
 
