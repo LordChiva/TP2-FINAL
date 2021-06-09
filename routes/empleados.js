@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
         //legajo: joi.number().alphanum().min(1000).max(9999).required(),
         legajo: joi.number().min(1000).max(9999).required(),
         nombre: joi.string().alphanum().min(2).max(50).required(),
-        password: joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+        password: joi.string().pattern(new RegExp('^[a-zA-Z0-9@#$%&]{3,30}$')).required(),
     });
     const result = schema.validate(req.body);
     if (result.error) {
@@ -58,7 +58,7 @@ router.put('/:id', async (req, res) => {
     const schema = joi.object({
         legajo: joi.number().min(1000).max(9999).required(),
         nombre: joi.string().min(2).max(50).required(),
-        password: joi.string().pattern(new RegExp('^[a-zA-Z0-9!@#$%&]{3,30}$')),
+        password: joi.string().pattern(new RegExp('^[a-zA-Z0-9!@#$%&]{3,30}$')).required(),
     });
     const result = schema.validate(req.body);
     if (result.error) {
