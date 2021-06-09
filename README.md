@@ -4,17 +4,18 @@ Grupo 12
     - Alumnos: Espinola Julieta, Jamschon Martin, Mendivil Jeronimo, Perez Ariel
 
 ## Descripción
-Api para la realizacion de pedidios en una casas de comidas. 
-Permite crear , almacendar e imprimir los pedidos. 
-LogIn de empleados con autenticacion y autorizacion, quienes podran registrar a clientes y productos con los datos pertinentes.
+Api para la realización de pedidos en una casa de comidas. 
+Permite crear , almacenar e imprimir los pedidos. 
+Login de empleados con autenticación y autorización, quienes podran registrar a clientes y productos con los datos pertinentes.
 
 ## Funcionalidades 
-1.LogIn de empleado
-2.Registro de producto
-3.Registro de cliente
-4.Ejecución de un pedido
-    4.1 Registro de solicitud 
-    4.2 
+1. Login de empleado
+2. Registro de producto
+3. Registro de cliente
+4. Ejecución de un pedido
+    - Registro de solicitud 
+    - Almacenar el pedido
+    - Imprimir el pedido
 
 ## Actores 
 - Usuario final (empleado)
@@ -22,10 +23,11 @@ LogIn de empleados con autenticacion y autorizacion, quienes podran registrar a 
 
 ## Entidades
 - Cliente
+- Empleado
 - Producto
 - Pedido
 
-## Instruccione técnicas
+## Instrucciones técnicas
 
 ### Para la instalación de un entorno de desarrollo
 
