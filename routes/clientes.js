@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
         apellido: joi.string().min(2).max(50).required(),
         telefono: joi.number().min(40000000).max(9999999999).required(),  //debe ser autoincremental
         email: joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
-        direccion:joi.string().min(2).max(1000).required(),
+        direccion: joi.string().min(2).max(1000).required(),
     });
     const result = schema.validate(req.body);
     if (result.error) {
@@ -52,25 +52,23 @@ router.post('/', async (req, res) => {
 //     res.json(cliente);
 // });
 
-
-
 //##TODO if por si vienen vacios
 router.put('/:id', async (req, res) => {
-const schema = joi.object({
+    const schema = joi.object({
         nombre: joi.string().min(2).max(50).required(),
         apellido: joi.string().min(2).max(50).required(),
         telefono: joi.number().min(40000000).max(9999999999),
         email: joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
-        direccion:joi.string().min(0).max(1000).required(),
+        direccion: joi.string().min(0).max(1000).required(),
     });
     const result = schema.validate(req.body);
     if (result.error) {
         res.status(400).send(result.error.details[0].message);
     } else {
-     let cliente = req.body;
-    cliente._id = req.params.id;
-    dataCliente.updateCliente(cliente);
-    res.json(cliente);
+        let cliente = req.body;
+        cliente._id = req.params.id;
+        dataCliente.updateCliente(cliente);
+        res.json(cliente);
     }
 });
 

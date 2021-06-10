@@ -35,16 +35,13 @@ async function updatePedido(pedido) {
             empleado_id: pedido.empleado_id,
             cliente_id: pedido.cliente_id,
             item_producto: pedido.item_producto,    // ------>
-
-            producto_id: pedido.item_producto.producto_id,
-            cantidad: pedido.item_producto.cantidad,
-            subTotal: pedido.item_producto.subTotal,
-
+            //producto_id: pedido.item_producto.producto_id,
+            //cantidad: pedido.item_producto.cantidad,
+            //subTotal: pedido.item_producto.subTotal,
             cantidadTotal: pedido.cantidadTotal,
             total: pedido.total,
         }
     };
-
     const result = await clientmongo.db('sample_tp2')
         .collection('pedidos')
         .updateOne(query, newvalues);
@@ -58,6 +55,5 @@ async function deletePedido(id) {
         .deleteOne({ _id: new objectId(id) });
     return result;
 }
-
 
 module.exports = { getPedidos, getPedido, addPedido, updatePedido, deletePedido };
