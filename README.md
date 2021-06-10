@@ -33,6 +33,7 @@ Login de empleados con autenticación y autorización, quienes podrán registrar
 $ git clone https://github.com/LordChiva/TP2-FINAL
 $ cd ../path/to/the/file
 $ npm install
+$ npm run startDev
 ```
 
 ### Para la ejecución
