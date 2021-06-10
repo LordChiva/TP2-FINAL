@@ -43,7 +43,6 @@ $ npm start
     
 ## Endpoints
 - /api/empleados
-- /api/empleados/[id]  ----> ????
 - /api/clientes
 - /api/productos
 - /api/pedidos
