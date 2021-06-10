@@ -1,12 +1,12 @@
-# TP2-FINAL 
-Grupo 12
-    - Profesor: Fernandez Pablo
-    - Alumnos: Espinola Julieta, Jamschon Martin, Mendivil Jeronimo, Perez Ariel
+# Taller de Programacion 2 - Trabajo Final 
+     Grupo 12
+     Alumnos: Espinola Julieta, Jamschon Martin, Mendivil Jerónimo, Perez Ariel
+     Profesor: Fernandez Pablo
 
 ## Descripción
 Api para la realización de pedidos en una casa de comidas. 
 Permite crear , almacenar e imprimir los pedidos. 
-Login de empleados con autenticación y autorización, quienes podran registrar a clientes y productos con los datos pertinentes.
+Login de empleados con autenticación y autorización, quienes podrán registrar clientes y productos con los datos pertinentes.
 
 ## Funcionalidades 
 1. Login de empleado
@@ -15,8 +15,7 @@ Login de empleados con autenticación y autorización, quienes podran registrar 
 4. Ejecución de un pedido
     - Registro de solicitud 
     - Almacenar el pedido
-    - Imprimir el pedido
-
+    - Generar y almacenar una copia en PDF
 ## Actores 
 - Usuario final (empleado)
 - Admin
@@ -30,8 +29,21 @@ Login de empleados con autenticación y autorización, quienes podran registrar 
 ## Instrucciones técnicas
 
 ### Para la instalación de un entorno de desarrollo
+```
+$ git clone https://github.com/LordChiva/TP2-FINAL
+$ cd ../path/to/the/file
+$ npm install
+```
 
 ### Para la ejecución
+- Solicitar el archivo .env
+```
+$ npm start
+```
     
-## Endpoints    
-    
+## Endpoints
+- /api/empleados
+- /api/empleados/[id]  ----> ????
+- /api/clientes
+- /api/productos
+- /api/pedidos
