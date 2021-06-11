@@ -2,6 +2,7 @@ const connection = require('./connection')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 let objectId = require('mongodb').ObjectId;
+require('dotenv').config();
 
 async function getEmpleados() {
     const clientmongo = await connection.getConnection();
@@ -74,7 +75,7 @@ async function findByCredentials(legajo, password) {
 }
 
 function generateAuthToken(empleado) {
-    const token = jwt.sign({ _id: empleado._id }, 'ultrasecreta', { expiresIn: '2h' });
+    const token = jwt.sign({ _id: empleado._id }, process.env.SECRET, { expiresIn: '2h' });
     return token;
 }
 
