@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
         //legajo: joi.number().alphanum().min(1000).max(9999).required(),
         legajo: joi.number().min(1000).max(9999).required(),
         nombre: joi.string().alphanum().min(2).max(50).required(),
-        password: joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+        password: joi.string().pattern(new RegExp('^[a-zA-Z0-9@#$%&]{3,30}$')).required(),
     });
     const result = schema.validate(req.body);
     if (result.error) {
@@ -36,29 +36,11 @@ router.post('/', async (req, res) => {
     }
 });
 
-// -------- POST CON VALIDACION -------------------------
-// router.post('/', async (req, res) => {
-//     const schema = joi.object({
-//         first: joi.string().alphanum().min(3).required(),
-//         last: joi.string().alphanum().min(3).required(),
-//         year: joi.number().min(1900).max(2020).required()
-//     });
-//     const result = schema.validate(req.body);
-//     console.log(result);
-//     if (result.error) {
-//         res.status(400).send(result.error.details[0].message);
-//     } else {
-//         let inventor = req.body;
-//         inventor = await dataInventor.addInventor(inventor);
-//         res.json(inventor);
-//     }
-// });
-
 router.put('/:id', async (req, res) => {
     const schema = joi.object({
         legajo: joi.number().min(1000).max(9999).required(),
         nombre: joi.string().min(2).max(50).required(),
-        password: joi.string().pattern(new RegExp('^[a-zA-Z0-9!@#$%&]{3,30}$')),
+        password: joi.string().pattern(new RegExp('^[a-zA-Z0-9!@#$%&]{3,30}$')).required(),
     });
     const result = schema.validate(req.body);
     if (result.error) {
@@ -70,25 +52,6 @@ router.put('/:id', async (req, res) => {
         res.json(empleado);
     }
 });
-
-//---------- PUT CON VALIDACION --------------------
-// router.put('/:id', async (req, res) => {
-//     const schema = joi.object({
-//         first: joi.string().alphanum().min(3),
-//         last: joi.string().alphanum().min(3),
-//         year: joi.number().min(1400).max(2020)
-//     });
-//     const result = schema.validate(req.body);
-//     if (result.error) {
-//         res.status(400).send(result.error.details[0].message);
-//     } else {
-//         let inventor = req.body;
-//         inventor._id = req.params.id;
-//         dataInventor.updateInventor(inventor);
-//         res.json(inventor);
-//     }
-// });
-
 
 router.delete('/:id', async (req, res) => {
     const empleado = await dataEmpleado.getEmpleado(req.params.id)
@@ -108,8 +71,6 @@ router.post('/login', async (req, res) => {
     } catch (error) {
         res.status(401).send(error.message);
     }
-
 });
-
 
 module.exports = router;

@@ -1,9 +1,7 @@
 //TODO instalar packages mongo --> npm install mongodb
-const mongoclient = require('mongodb').MongoClient
-
-//TODO prox clase utilizar variables de entorno 
-const uri = "mongodb+srv://admin:admin123@cluster0.a4bro.mongodb.net/sample_tp2?retryWrites=true&w=majority"
-
+require('dotenv').config();
+const mongoclient = require('mongodb').MongoClient;
+const uri = process.env.MONGO_URI;
 const client = new mongoclient(uri);
 
 let instance = null;
@@ -21,4 +19,4 @@ async function getConnection() {
     return instance;
 }
 
-module.exports = {getConnection};
+module.exports = { getConnection };
