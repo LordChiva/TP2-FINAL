@@ -30,9 +30,9 @@ router.post('/', async (req, res) => {
         item_producto: joi.array(),
         //producto_id: joi.string().alphanum().required(), //revisar
         //cantidad: joi.number().min(1).max(9999), //revisar
-        //subTotal: joi.number().min(1).max(999999), //revisar
-        cantidadTotal: joi.number().min(1).max(999999),
-        total: joi.number().min(1).max(999999),
+        subTotal: joi.number().min(0).max(999999), //revisar
+        cantidadTotal: joi.number().min(0).max(999999),
+        total: joi.number().min(0).max(999999),
     });
     const result = schema.validate(req.body);
     if (result.error) {
@@ -55,10 +55,10 @@ router.put('/:id', async (req, res) => {
         cliente_id: joi.string().alphanum().required(),
         item_producto: joi.array().required(),
         producto_id: joi.string().alphanum(), //no esta requerido
-        cantidad: joi.number().min(1).max(9999),
-        subTotal: joi.number().min(1).max(999999),
-        cantidadTotal: joi.number().min(1).max(999999),
-        total: joi.number().min(1).max(999999),
+        cantidad: joi.number().min(0).max(9999),
+        subTotal: joi.number().min(0).max(999999),
+        cantidadTotal: joi.number().min(0).max(999999),
+        total: joi.number().min(0).max(999999),
     });
     const result = schema.validate(req.body);
     if (result.error) {
