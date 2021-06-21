@@ -43,7 +43,34 @@ $ npm start
 ```
     
 ## Endpoints
-- /api/empleados
-- /api/clientes
-- /api/productos
-- /api/pedidos
+| | EMPLEADOS |
+| --------| -------------- |
+| **GET** | /api/empleados |
+| **POST**| /api/empleados |
+| **GET** | /api/empleados/[ id ] |
+| **PUT** | /api/empleados/[ id ] |
+| **DELETE** | /api/empleados/[ id ] |
+
+| | CLIENTES | 
+| --------| -------------- |
+| **GET** | /api/clientes |
+| **POST**| /api/clientes |
+| **GET** | /api/clientes/[ id ] |
+| **PUT** | /api/clientes/[ id ] |
+| **DELETE** | /api/clientes/[ id ] |
+
+| | PRODUCTOS |
+| --------| -------------- |
+| **GET** | /api/productos |
+| **POST**| /api/productos |
+| **GET** | /api/productos/[ id ] |
+| **PUT** | /api/productos/[ id ] |
+| **DELETE** | /api/productos/[ id ] |
+
+| | PEDIDOS |
+| --------| -------------- |
+| **GET** | /api/pedidos |
+| **POST**| /api/pedidos |
+| **GET** | /api/pedidos/[ id ] |
+| **PUT** | /api/pedidos/[ id ] |
+| **DELETE** | /api/pedidos/[ id ] |
