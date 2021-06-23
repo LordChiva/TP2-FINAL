@@ -10,6 +10,7 @@ const clientesRouter = require('./routes/clientes');
 const productosRouter = require('./routes/productos');
 const empleadosRouter = require('./routes/empleados');
 const pedidosRouter = require('./routes/pedidos');
+const pedidosPDF = require('./used_api/pdfkit');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use('/api/clientes', clientesRouter);
 app.use('/api/productos', productosRouter);
 app.use('/api/empleados', empleadosRouter);
 app.use('/api/pedidos', pedidosRouter);
+app.use('/api/pedidosPDF', pedidosPDF);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
