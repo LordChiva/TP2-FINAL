@@ -81,4 +81,16 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+router.get('/generatorPDF:id', async (req, res) => {
+    const pedido = await dataPedido.getPedido(req.params.id);
+    if (pedido) {
+        templatePedido.generar(pedido);//test deberia ser enviando un pedido como parametro
+        //templatePedido.generar(pedido);
+        //res.json(pedido);
+
+    } else {
+        res.status(404).send('Pedido no encontrado');
+    }
+});
+
 module.exports = router;

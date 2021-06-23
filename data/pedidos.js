@@ -1,6 +1,7 @@
 const connection = require('./connection')
 let objectId = require('mongodb').ObjectId;
 let dataProducto = require('../data/productos');
+let templatePedido = require('../templates/pedidoTemplate');
 
 async function getPedidos() {
     const clientmongo = await connection.getConnection();

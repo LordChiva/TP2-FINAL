@@ -14,35 +14,9 @@ const pie = `Recibirá su pedido dentro de los próximos 50 minutos
                 
                         ...Gracias por elegirnos`
 
-//ingresar el item con los parametros:
-/*@params
-@cantidad
-@producto_id
-*/
-
-//Valores para imprimir: // ${ }
-//let cliente = 
-//buscando el id (getCliente).nombre // y telefono
-
-//let cantidad = recibe la cantidad del pedido
-
-//let producto = buscando por id (getProducto).nombre
-
-//let subTotal = 
-//recibe le subtotal ya calculado o
-//calcular con la funcion async function subTotal(pedido)
-
-//let total = 
-//recibe el total del pedido
-//calcularlo con la function importeTotal(pedido) 
-
-let cantidad = 4;
-let producto = 'jyq';
-let subTotal = 200;
-let total = 250;
-
 function generarPdf(cantidad, producto, subTotal, total) {
-
+    // creacion de documento PDF
+    const doc = new pdf()
     doc.text(encabezado)
     doc.text('\n')
     doc.text(titulo)
@@ -58,18 +32,47 @@ function generarPdf(cantidad, producto, subTotal, total) {
     doc.text('\n')
     doc.text('--------------------------------------------------------------------------')
     doc.text(pie);
+
+    return doc;
 }
 
-// creacion de documento PDF
-const doc = new pdf()
+//function generar(pedido) {  --->  deberia recibir un pedido como parametro
+function generar(pedido) {
+    //ingresar el item con los parametros:
+    /*@params
+    @cantidad
+    @producto_id
+    */
 
-//creacion del nombre del archivo
-//se guarda local - ver si es la descargar
-//doc.pipe(fs.createWriteStream(`./pedido_${fechaHora_telefono}.pdf`))
-doc.pipe(fs.createWriteStream(`./pedido_${cantidad}_${producto}.pdf`))
+    //let cliente = pedido.cliente_id;
+    console.log(pedido);
+    //console.log('cliente ' + cliente);
+    //buscando el id (getCliente).nombre // y telefono
 
-console.log(`\n****** El pedido ha sido creado con éxito  *********`)
+    //let cantidad = recibe la cantidad del pedido
 
-generarPdf(cantidad, producto, subTotal, total);
+    //let producto = buscando por id (getProducto).nombre
 
-doc.end();
+    //let subTotal = 
+    //recibe le subtotal ya calculado o
+    //calcular con la funcion async function subTotal(pedido)
+
+    //let total = 
+    //recibe el total del pedido
+    //calcularlo con la function importeTotal(pedido) 
+
+    let cantidad = 16;
+    let producto = 'jyq';
+    let subTotal = 200;
+    let total = 250;
+
+    let doc = generarPdf(cantidad, producto, subTotal, total);
+
+    //creacion del nombre del archivo - se guarda local 
+    //doc.pipe(fs.createWriteStream(`./pedido_${fechaHora_telefono}.pdf`))
+    doc.pipe(fs.createWriteStream(`./templates/pedido_${cantidad}_${producto}.pdf`))
+    doc.end();
+    console.log(`\n****** El pedido ha sido creado con éxito  *********`)
+}
+
+generar();
