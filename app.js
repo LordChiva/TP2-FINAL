@@ -30,7 +30,7 @@ app.use('/api/clientes', clientesRouter);
 app.use('/api/productos', productosRouter);
 app.use('/api/empleados', empleadosRouter);
 app.use('/api/pedidos', pedidosRouter);
-app.use('/api/pedidosPDF', pedidosPDF);
+app.use('/api/pedidos/generatorPDF', pedidosPDF); // prueba
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
