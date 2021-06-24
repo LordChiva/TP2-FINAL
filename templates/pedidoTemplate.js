@@ -1,6 +1,8 @@
 //const { CANCELLED } = require('dns');
 const fs = require('fs');
 const pdf = require('pdfkit');
+const dataProducto = require('../data/productos');
+const dataCliente = require('../data/clientes');
 
 //Encabezado
 const encabezado = `                      EMPANADapp    
@@ -14,7 +16,8 @@ const pie = `Recibirá su pedido dentro de los próximos 50 minutos
                 
                         ...Gracias por elegirnos`
 
-function generarPdf(cantidad, producto, subTotal, total) {
+//function generarPdf(cantidad, producto, subTotal, total) {
+async function generarPdf(pedido) {
     // creacion de documento PDF
     const doc = new pdf()
     doc.text(encabezado)
@@ -23,57 +26,37 @@ function generarPdf(cantidad, producto, subTotal, total) {
     doc.text('\n')
     doc.text('--------------------------------------------------------------------------')
     doc.text('\n')
-    doc.text(`Empanada sabor: ${producto}  -- cantidad: ${cantidad}   -- Subotal: $${subTotal}`)
-    // --> hacer varias lineas 
+
+    //Hacer un forof  // --> hacer que imprima varias lineas 
+    for (const itemProducto of pedido.item_producto) {
+        let producto = await dataProducto.getProducto(itemProducto.producto_id);
+        doc.text(`Empanada sabor: ${producto.gusto}  -- cantidad: ${itemProducto.cantidad}   -- Subtotal: $${itemProducto.subTotal}`)
+    }
+
     doc.text('\n')
     doc.text('--------------------------------------------------------------------------')
     doc.text('\n')
-    doc.text(`Total: $${total}`)
+    doc.text(`Total: $${pedido.total}`)
     doc.text('\n')
     doc.text('--------------------------------------------------------------------------')
     doc.text(pie);
-
     return doc;
 }
 
 //function generar(pedido) {  --->  deberia recibir un pedido como parametro
-function generar(pedido) {
-    //ingresar el item con los parametros:
-    /*@params
-    @cantidad
-    @producto_id
-    */
+async function generar(pedido) {
+    let fechahora = pedido.fechahora;
+    let idCliente = pedido.cliente_id;
+    let cliente = await dataCliente.getCliente(idCliente);
+    let telefono = cliente.telefono;
 
-    //let cliente = pedido.cliente_id;
-    console.log(pedido);
-    //console.log('cliente ' + cliente);
-    //buscando el id (getCliente).nombre // y telefono
-
-    //let cantidad = recibe la cantidad del pedido
-
-    //let producto = buscando por id (getProducto).nombre
-
-    //let subTotal = 
-    //recibe le subtotal ya calculado o
-    //calcular con la funcion async function subTotal(pedido)
-
-    //let total = 
-    //recibe el total del pedido
-    //calcularlo con la function importeTotal(pedido) 
-
-    let cantidad = 17;
-    let producto = 'jyq';
-    let subTotal = 200;
-    let total = 250;
-
-    let doc = generarPdf(cantidad, producto, subTotal, total);
+    let doc = await generarPdf(pedido);
 
     //creacion del nombre del archivo - se guarda local 
     //doc.pipe(fs.createWriteStream(`./pedido_${fechaHora_telefono}.pdf`))
-    doc.pipe(fs.createWriteStream(`../pedido_${cantidad}_${producto}.pdf`))
+    doc.pipe(fs.createWriteStream(`./templates/pedido_${fechahora}_${telefono}.pdf`));
     doc.end();
     console.log(`\n****** El pedido ha sido creado con éxito  *********`)
 }
 
-//generar();
 module.exports = { generar };
