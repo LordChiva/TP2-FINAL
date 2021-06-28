@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
 // /api/pedidos/
 router.post('/', async (req, res) => {
     const schema = joi.object({
-        fechahora: joi.string(),
+        fechahora: joi.string().required(),
         empleado_id: joi.string().alphanum().required(),
         cliente_id: joi.string().alphanum().required(),
         item_producto: joi.array(),
@@ -44,6 +44,7 @@ router.post('/', async (req, res) => {
 // /api/pedidos/[id]
 router.put('/:id', async (req, res) => {
     const schema = joi.object({
+        fechahora: joi.string().required(),
         empleado_id: joi.string().alphanum().required(),
         cliente_id: joi.string().alphanum().required(),
         item_producto: joi.array().required(),

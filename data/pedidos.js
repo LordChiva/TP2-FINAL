@@ -91,9 +91,9 @@ async function subTotal(pedido) {
     let sumaSubTotal = 0;
     for (const itemProducto of pedido.item_producto) {
         let producto = await dataProducto.getProducto(itemProducto.producto_id);
-        console.log(producto.precio);
+        //console.log(producto.precio);
         sumaSubTotal = itemProducto.cantidad * producto.precio;
-        console.log(sumaSubTotal);
+        //console.log(sumaSubTotal);
         itemProducto.subTotal = sumaSubTotal;
     }
     return pedido;

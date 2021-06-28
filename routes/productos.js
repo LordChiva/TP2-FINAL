@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
         precio: joi.number().min(1).max(1000).required()
     });
     const result = schema.validate(req.body);
-    console.log(result);
+    //console.log(result);
     if (result.error) {
         res.status(400).send(result.error.details[0].message);
     } else {
