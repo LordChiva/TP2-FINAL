@@ -10,6 +10,7 @@ router.get('/', auth, async function (req, res, next) {
     res.json(empleados);
 });
 
+// /api/empleados/[id]
 router.get('/:id', auth, async (req, res) => {
     const empleado = await dataEmpleado.getEmpleado(req.params.id);
     if (empleado) {
@@ -19,6 +20,7 @@ router.get('/:id', auth, async (req, res) => {
     }
 });
 
+// /api/empleados/
 router.post('/', async (req, res) => {
     const schema = joi.object({
         //legajo: joi.number().alphanum().min(1000).max(9999).required(),
@@ -36,6 +38,7 @@ router.post('/', async (req, res) => {
     }
 });
 
+// /api/empleados/[id]
 router.put('/:id', async (req, res) => {
     const schema = joi.object({
         legajo: joi.number().min(1000).max(9999).required(),
@@ -53,6 +56,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+// /api/empleados/[id]
 router.delete('/:id', async (req, res) => {
     const empleado = await dataEmpleado.getEmpleado(req.params.id)
     if (!empleado) {
@@ -63,6 +67,7 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+// /api/empleados/login
 router.post('/login', async (req, res) => {
     try {
         const user = await dataEmpleado.findByCredentials(req.body.legajo, req.body.password);
@@ -73,4 +78,5 @@ router.post('/login', async (req, res) => {
     }
 });
 
+//Se exporta el router
 module.exports = router;

@@ -16,7 +16,7 @@ const pie = `Recibirá su pedido dentro de los próximos 50 minutos
                 
                         ...Gracias por elegirnos`
 
-//function generarPdf(cantidad, producto, subTotal, total) {
+//Generacion del formato del PDF
 async function generarPdf(pedido) {
     // creacion de documento PDF
     const doc = new pdf()
@@ -26,13 +26,10 @@ async function generarPdf(pedido) {
     doc.text('\n')
     doc.text('--------------------------------------------------------------------------')
     doc.text('\n')
-
-    //Hacer un forof  // --> hacer que imprima varias lineas 
     for (const itemProducto of pedido.item_producto) {
         let producto = await dataProducto.getProducto(itemProducto.producto_id);
         doc.text(`Empanada sabor: ${producto.gusto}  -- cantidad: ${itemProducto.cantidad}   -- Subtotal: $${itemProducto.subTotal}`)
     }
-
     doc.text('\n')
     doc.text('--------------------------------------------------------------------------')
     doc.text('\n')
@@ -45,18 +42,16 @@ async function generarPdf(pedido) {
 
 //function generar(pedido) {  --->  deberia recibir un pedido como parametro
 async function generar(pedido) {
-    let fechahora = pedido.fechahora;
+    let fechahora = pedido.fechahora; // debe guardarse de la siguiente manera: AAAA-MM-DD
     let idCliente = pedido.cliente_id;
     let cliente = await dataCliente.getCliente(idCliente);
     let telefono = cliente.telefono;
-
     let doc = await generarPdf(pedido);
-
     //creacion del nombre del archivo - se guarda local 
-    //doc.pipe(fs.createWriteStream(`./pedido_${fechaHora_telefono}.pdf`))
-    doc.pipe(fs.createWriteStream(`./templates/pedido_${fechahora}_${telefono}.pdf`));
+    doc.pipe(fs.createWriteStream(`./templates/PDFs/pedido_${fechahora}_${telefono}.pdf`));
     doc.end();
     console.log(`\n****** El pedido ha sido creado con éxito  *********`)
 }
 
+//Se exporta la funcion generar
 module.exports = { generar };

@@ -9,6 +9,7 @@ router.get('/', async function (req, res, next) {
     res.json(clientes);
 });
 
+//// /api/clientes/[id]
 router.get('/:id', async (req, res) => {
     const cliente = await dataCliente.getCliente(req.params.id);
     if (cliente) {
@@ -18,14 +19,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-//--------------------POST sin validacion FUNCIONANDO --------------------
-// router.post('/', async (req, res) => {
-//     //TODO validar
-//     let cliente = req.body;
-//     cliente = await dataCliente.addCliente(cliente);
-//     res.json(cliente);
-// });
-
+// /api/clientes/
 router.post('/', async (req, res) => {
     const schema = joi.object({
         nombre: joi.string().min(2).max(50).required(),
@@ -44,15 +38,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-//----------------PUT sin validacion FUNCIONANDO----------------------------
-// router.put('/:id', async (req, res) => {
-//     let cliente = req.body;
-//     cliente._id = req.params.id;
-//     dataCliente.updateCliente(cliente);
-//     res.json(cliente);
-// });
-
-//##TODO if por si vienen vacios
+// /api/clientes/ [id]
 router.put('/:id', async (req, res) => {
     const schema = joi.object({
         nombre: joi.string().min(2).max(50).required(),
@@ -72,6 +58,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+// /api/clientes/ [id]
 router.delete('/:id', async (req, res) => {
     const cliente = await dataCliente.getCliente(req.params.id)
     if (!cliente) {
@@ -82,4 +69,5 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+// Se exporta el router
 module.exports = router;

@@ -6,7 +6,7 @@ const client = new mongoclient(uri);
 
 let instance = null;
 
-//singleton
+//Singleton
 async function getConnection() {
     if (instance == null) {
         try {
@@ -19,4 +19,5 @@ async function getConnection() {
     return instance;
 }
 
+//Metodo que se exporta
 module.exports = { getConnection };
