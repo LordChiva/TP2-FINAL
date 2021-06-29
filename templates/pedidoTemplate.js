@@ -29,7 +29,7 @@ async function generarPdf(pedido) {
     doc.text(`${cliente.nombre} ${cliente.apellido}    -     ${cliente.telefono}`, {align: 'center'});
     doc.text(`${cliente.direccion}`, {align: 'center'});
 
-    doc.text('--------------------------------------------------------------------------------------------------------------------')
+    doc.text('---------------------------------------------------------------------------------------------------------------------')
     doc.text('\n')
     doc.text('SABOR                             PRECIO                        CANT                     SUBTOTAL  ', {align: 'right'})
     doc.text('\n')
@@ -39,11 +39,11 @@ async function generarPdf(pedido) {
         doc.text(`${producto.gusto}                                 ${producto.precio}                                 ${itemProducto.cantidad}                                 $ ${itemProducto.subTotal}`, {align: 'right'})
     }
     doc.text('\n')
-    doc.text('--------------------------------------------------------------------------------------------------------------------')
+    doc.text('---------------------------------------------------------------------------------------------------------------------')
     doc.text('\n')
-    doc.text(`Total: $${pedido.total}`,{align: 'right'})
+    doc.text(` Total:           ${pedido.cantidadTotal}                                  $${pedido.total}`,{align: 'right'})
     doc.text('\n')
-    doc.text('--------------------------------------------------------------------------------------------------------------------')
+    doc.text('---------------------------------------------------------------------------------------------------------------------')
     
     doc.text(pie)
     return doc;
