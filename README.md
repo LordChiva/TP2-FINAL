@@ -74,3 +74,5 @@ $ npm start
 | **GET** | /api/pedidos/[ id ] |
 | **PUT** | /api/pedidos/[ id ] |
 | **DELETE** | /api/pedidos/[ id ] |
+| **GET** | /api/pedidos/generatorPDF/[ id ] |
+

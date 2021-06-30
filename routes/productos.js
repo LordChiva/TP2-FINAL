@@ -9,6 +9,7 @@ router.get('/', async function (req, res, next) {
     res.json(productos);
 });
 
+// /api/productos/[id]
 router.get('/:id', async (req, res) => {
     const producto = await dataProducto.getProducto(req.params.id);
     if (producto) {
@@ -18,13 +19,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-//-------post sin validacion funcionando-----------------------
-// router.post('/', async (req, res) => {
-//     let producto = req.body;
-//     producto = await dataProducto.addProducto(producto);
-//     res.json(producto);
-// });
-
+// /api/productos/
 router.post('/', async (req, res) => {
     const schema = joi.object({
         cod: joi.string().alphanum().min(1).max(3).required(),
@@ -32,7 +27,7 @@ router.post('/', async (req, res) => {
         precio: joi.number().min(1).max(1000).required()
     });
     const result = schema.validate(req.body);
-    console.log(result);
+    //console.log(result);
     if (result.error) {
         res.status(400).send(result.error.details[0].message);
     } else {
@@ -42,14 +37,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-//------------PUT sin validacion FUNCIONANDO ---------------
-// router.put('/:id', async (req, res) => {
-//     let producto = req.body;
-//     producto._id = req.params.id;
-//     dataProducto.updateProducto(producto);
-//     res.json(producto);
-// });
-
+// /api/productos/[id]
 router.put('/:id', async (req, res) => {
     const schema = joi.object({
         cod: joi.string().alphanum().min(1).max(3).required(),
@@ -67,6 +55,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+// /api/productos/[id]
 router.delete('/:id', async (req, res) => {
     const producto = await dataProducto.getProducto(req.params.id)
     if (!producto) {
@@ -77,4 +66,5 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+//Se exporta el router
 module.exports = router;
