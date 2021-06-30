@@ -24,10 +24,10 @@ async function getPedido(id) {
 
 //Agrega un pedido y lo persiste en la BD
 async function addPedido(pedido) {
+    pedido = fechaYHoraActual(pedido);
     pedido = cantidadTotal(pedido);
     pedido = await subTotal(pedido);
     pedido = importeTotal(pedido);
-    pedido = fechaYHoraActual(pedido);
     const clientmongo = await connection.getConnection();
     const result = await clientmongo.db('sample_tp2')
         .collection('pedidos')
