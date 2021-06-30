@@ -1,4 +1,4 @@
-const { CANCELLED } = require('dns');
+//const { CANCELLED } = require('dns');
 const fs = require('fs');
 const pdf = require('pdfkit');
 
@@ -61,7 +61,7 @@ function generar(pedido) {
     //recibe el total del pedido
     //calcularlo con la function importeTotal(pedido) 
 
-    let cantidad = 16;
+    let cantidad = 17;
     let producto = 'jyq';
     let subTotal = 200;
     let total = 250;
@@ -70,9 +70,10 @@ function generar(pedido) {
 
     //creacion del nombre del archivo - se guarda local 
     //doc.pipe(fs.createWriteStream(`./pedido_${fechaHora_telefono}.pdf`))
-    doc.pipe(fs.createWriteStream(`./templates/pedido_${cantidad}_${producto}.pdf`))
+    doc.pipe(fs.createWriteStream(`../pedido_${cantidad}_${producto}.pdf`))
     doc.end();
     console.log(`\n****** El pedido ha sido creado con éxito  *********`)
 }
 
-generar();
+//generar();
+module.exports = { generar };
